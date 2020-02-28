@@ -1,27 +1,13 @@
 # SiteUpdaterDemo
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.3.
+This is a Proof Of Concept to show how we could handle mandatory and recommended uploading of new versions of Angular SPAs.
 
-## Development server
+The central conceit is the use of a `version.json` file and a compiled `const` both of which include the semantic version number of the build.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+The `const` version is compiled into the code and the `version.json` is regularly polled from the server.
 
-## Code scaffolding
+The VersionService manages the polling and compares the compiled version with the `version.json` using the `diff` function from the `semver` library. If the difference is in the major version number, a mandatory upgrade event is issued.. If the difference is in the minor or patch version then a recommended upgrade event is issued. Otherwise the version difference is ignored.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+These events are published as an Observable from the VersionService, and contain the loaded and latest versions and the upgrade recommendation.
 
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+The app component consumes this and displays an appropriate message. If the recommendation is mandatory, the site reloads after a short delay.
