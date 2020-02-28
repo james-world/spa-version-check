@@ -2,6 +2,10 @@
 
 This is a Proof Of Concept to show how we could handle mandatory and recommended uploading of new versions of Angular SPAs.
 
+To test this out, build the code with `ng build` and then serve it **without** a hotloader running. (Eg. install `httpserver` globally and run `httpserver -p 9201` from the `/dist/SiteUpdateDemo` folder.)
+
+Point a browser at the site and then modify the version numbers in `/src/version.json` and `/src/app/version.ts` to a new minor or major version number (make them both the same). After a second or two you should see a notice appear indicating a Recommended (minor/patch version change) or Mandatory (major version change). If it's Mandatory the site will refresh after a few seconds.
+
 The central conceit is the use of a `version.json` file and a compiled `const` both of which include the semantic version number of the build.
 
 The `const` version is compiled into the code and the `version.json` is regularly polled from the server.
