@@ -32,7 +32,7 @@ To make this all work, the `/src/version.json` filed is marked as an asset and `
 
 ## Implementation considerations
 
-- How frequently should polling take place? The PoC hard codes for 1 second.
+- How frequently should polling take place? The PoC hard codes for 1 second. You might want to do something fancy with SignalR or similar if polling doesn't appeal.
 - What should happen if the `version.json` fetch fails? The PoC ignores failures and keeps polling.
 - What should the user experience be? I envisage showing a dismissable banner for recommended upgrades, and something more imposing with a countdown for mandatory upgrades.
 - You'll need to think carefully about version numbering and what constitutes a breaking change.
