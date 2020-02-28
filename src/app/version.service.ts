@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, interval, Subscription, timer } from 'rxjs';
-import { exhaustMap, switchMap, map, filter } from 'rxjs/operators';
+import { Observable, timer, empty } from 'rxjs';
+import { switchMap, map, filter, catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -17,9 +17,14 @@ export class VersionService {
 
     this.versionChanged = timer(0, 1000)
       .pipe(
-        switchMap(_ => http.get<string>('version.json')),
+        switchMap(_ => this.getVersionOrEmpty()),
         filter(v => v !== this.version),
         map(_ => true)
       );
+  }
+
+  private getVersionOrEmpty(): Observable<string> {
+    return this.http.get<string>('version.json').pipe(
+      catchError(_ => empty()));
   }
 }
