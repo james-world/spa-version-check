@@ -1,8 +1,20 @@
 # SiteUpdaterDemo
 
-This is a Proof Of Concept to show how we could handle mandatory and recommended uploading of new versions of Angular SPAs.
+## Overview
 
-To test this out, build the code with `ng build` and then serve it **without** a hotloader running. (Eg. install `httpserver` globally and run `httpserver -p 9201` from the `/dist/SiteUpdateDemo` folder.)
+This is a Proof Of Concept to show how we could handle the situation when a new version of an Angular SPA is available.
+
+This solution is useful when your users tend to keep your SPA open for days or weeks at a time. You release a new build, and they need to refresh/reload to get new features and fixes.
+
+Note, this isn't necessarily about backend breaking changes. This can be handled with, for example, versioned URLs in your APIs, use of client/server version headers etc. Here, we are just thinking about changes in the SPA code itself. Also, we aren't looking at anything like reloading parts of the application - this is about a full refresh situation.
+
+Following semver, we wanted to differentiate between a minor version change that represents a recommended upgrade, verus a major version change representing a mandatory change. IN the recommended case, we'd want to show a banner advising of the change, but in the mandatory case, we'd want to force the refresh after a timeout.
+
+## Trying out the Solution
+
+Most of the interesting code is in the `src/app/version.service.ts`.
+
+To try out the code, clone, `npm install` and build with `ng build` and then serve it **without** a hotloader running. (Eg. Don't use `ng serve`, instead you could install npm package `httpserver` globally and run `httpserver -p 9201` from the `/dist/SiteUpdateDemo` folder.)
 
 Point a browser at the site and then modify the version numbers in `/src/version.json` and `/src/app/version.ts` to a new minor or major version number (make them both the same). After a second or two you should see a notice appear indicating a Recommended (minor/patch version change) or Mandatory (major version change). If it's Mandatory the site will refresh after a few seconds.
 
