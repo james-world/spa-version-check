@@ -18,9 +18,7 @@ To try out the code, clone, `npm install` and build with `ng build` and then ser
 
 Point a browser at the site and then modify the version numbers in `/src/version.json` and `/src/app/version.ts` to a new minor or major version number (make them both the same). After a second or two you should see a notice appear indicating a Recommended (minor/patch version change) or Mandatory (major version change). If it's Mandatory the site will refresh after a few seconds.
 
-The central conceit is the use of a `version.json` file and a compiled `const` both of which include the semantic version number of the build.
-
-The `const` version is compiled into the code and the `version.json` is regularly polled from the server.
+The central conceit is the use of a `version.json` file and a compiled `const` both of which include the semantic version number of the build. The `const` version is compiled into the code and the `version.json` is regularly polled from the server. When a new build is deployed, the code running the browser will have the old version, but `version.json` will contain the new version.
 
 The VersionService manages the polling and compares the compiled version with the `version.json` using the `diff` function from the `semver` library. If the difference is in the major version number, a mandatory upgrade event is issued.. If the difference is in the minor or patch version then a recommended upgrade event is issued. Otherwise the version difference is ignored.
 
@@ -37,6 +35,7 @@ To make this all work, the `/src/version.json` filed is marked as an asset and `
 - What should the user experience be? I envisage showing a dismissable banner for recommended upgrades, and something more imposing with a countdown for mandatory upgrades.
 - You'll need to think carefully about version numbering and what constitutes a breaking change.
 - You'll need to think about how the version number gets written into the code at build time.
+- Do you downgrade/rollback? This code will still work - it doesn't check whether the version change is up or down.
 
 ## Testing
 
