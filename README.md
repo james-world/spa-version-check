@@ -11,3 +11,5 @@ The VersionService manages the polling and compares the compiled version with th
 These events are published as an Observable from the VersionService, and contain the loaded and latest versions and the upgrade recommendation.
 
 The app component consumes this and displays an appropriate message. If the recommendation is mandatory, the site reloads after a short delay.
+
+To make this all work, the `/src/version.json` filed is marked as an asset and `/src/app/version.ts` is compiled into the app. Both of these files need to be updated by your CI build pipeline to reflect the version of the application. Version numbers should follow semver so that a major version change is used to indicate a breaking change.
