@@ -13,3 +13,11 @@ These events are published as an Observable from the VersionService, and contain
 The app component consumes this and displays an appropriate message. If the recommendation is mandatory, the site reloads after a short delay.
 
 To make this all work, the `/src/version.json` filed is marked as an asset and `/src/app/version.ts` is compiled into the app. Both of these files need to be updated by your CI build pipeline to reflect the version of the application. Version numbers should follow semver so that a major version change is used to indicate a breaking change.
+
+## Implementation considerations
+
+- How frequently should polling take place? The PoC hard codes for 1 second.
+- What should happen if the `version.json` fetch fails? The PoC ignores failures and keeps polling.
+- What should the user experience be? I envisage showing a dismissable banner for recommended upgrades, and something more imposing with a countdown for mandatory upgrades.
+- You'll need to think carefully about version numbering and what constitutes a breaking change.
+- You'll need to think about how the version number gets written into the code at build time.
