@@ -28,8 +28,10 @@ export class AppComponent implements OnInit {
         timer(5000).subscribe({
           next: _ => window.location.reload()
         });
+        break;
       case UpgradeRecommendation.Recommended:
         this.versionNotice = `Recommended verison update from ${v.loaded} to ${v.latest}`;
+        break;
     }
   }
 
