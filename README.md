@@ -25,3 +25,7 @@ To make this all work, the `/src/version.json` filed is marked as an asset and `
 - What should the user experience be? I envisage showing a dismissable banner for recommended upgrades, and something more imposing with a countdown for mandatory upgrades.
 - You'll need to think carefully about version numbering and what constitutes a breaking change.
 - You'll need to think about how the version number gets written into the code at build time.
+
+## Testing
+
+- It's actually fairly easy to test rxjs time based streams in Angular now, check out `version.service.spec.ts` for ideas of how to test this stuff.
